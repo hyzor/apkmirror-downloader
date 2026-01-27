@@ -19,8 +19,12 @@ export function makeRepoUrl({ org, repo }: App) {
 }
 
 export function makeVariantsUrl({ org, repo }: App, version: string) {
+  // For X/Twitter, the app name in URLs is "x" not "twitter"
+  // This handles the special case where the app name differs from repo name
+  const appName = (org === "x-corp" && repo === "twitter") ? "x" : repo;
+  
   return withBaseUrl(
-    `/apk/${org}/${repo}/${repo}-${version.replaceAll(".", "-")}-release/`,
+    `/apk/${org}/${repo}/${appName}-${version.replaceAll(".", "-")}-release/`,
   );
 }
 
