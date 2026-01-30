@@ -8,7 +8,7 @@ import type { LooseAutocomplete } from "../utils/types";
 import { getFilteredVariant } from "./helpers";
 import { getFinalDownloadUrl } from "./scrapers/downloads";
 import { getVariants, RedirectError } from "./scrapers/variants";
-import { getVersions } from "./scrapers/versions";
+import { getVersions, type Version } from "./scrapers/versions";
 import type { App, AppArch, AppOptions, SpecialAppVersionToken } from "./types";
 import {
   extractFileNameFromUrl,
@@ -20,6 +20,8 @@ import {
   makeRepoUrl,
   makeVariantsUrl,
 } from "./utils";
+
+export type { Version };
 
 export type APKMDOptions = {
   arch?: AppOptions["arch"];
@@ -145,5 +147,10 @@ export class APKMirrorDownloader {
       await Bun.write(dest, res);
       return { dest, skipped: false as const };
     });
+  }
+
+  static async getVersions(app: App): Promise<Version[]> {
+    const repoUrl = makeRepoUrl(app);
+    return getVersions(repoUrl);
   }
 }
