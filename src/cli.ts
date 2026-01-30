@@ -8,6 +8,7 @@ import {
   type APKMDOptions,
   type App,
   type AppOptions,
+  type Version,
 } from "./index";
 import { readJsonFile } from "./utils/filesystem";
 
@@ -147,6 +148,39 @@ yargs(process.argv.slice(2))
           console.error(err);
         },
       );
+    },
+  )
+  .command(
+    `versions <org> <repo>`,
+    `get available versions for an app`,
+    yargs => {
+      return yargs
+        .positional("org", {
+          type: "string",
+          describe: "Org name",
+        })
+        .positional("repo", {
+          type: "string",
+          describe: "Repo name",
+        });
+    },
+    async argv => {
+      const app = {
+        org: argv.org!,
+        repo: argv.repo!,
+      };
+
+      try {
+        const versions = await APKMirrorDownloader.getVersions(app);
+        console.log(`Available versions for ${app.org}/${app.repo}:`);
+        versions.forEach((version: Version, index: number) => {
+          console.log(`${index + 1}. ${version.name}`);
+        });
+      } catch (err) {
+        console.error(
+          `Error getting versions: ${err instanceof Error ? err.message : String(err)}`,
+        );
+      }
     },
   )
   .version(false)
