@@ -43,7 +43,9 @@ export function extractVersions(versionsPageHtml: string) {
     };
   });
 
-  return versions.filter(isNotNull);
+  return versions
+    .filter(isNotNull)
+    .filter(v => !v.name.toLowerCase().includes("alpha"));
 }
 
 export type Version = ReturnType<typeof extractVersions>[number];
