@@ -2,7 +2,7 @@
   "git": {
     "tagName": "v${version}",
     "commitMessage": "chore: release v${version}",
-    "pushRepo": "https://github.com/hyzor/apkmirror-downloader"
+    "pushRepo": "git@github.com:hyzor/apkmirror-downloader.git"
   },
   "hooks": {
     "after:bump": ["bun run build", " bun run compile"]
