@@ -26,12 +26,20 @@
             "section": "🎉 Features"
           },
           {
+            "type": "fix",
+            "section": "🐛 Bug Fixes"
+          },
+          {
             "type": "refactor",
             "section": "🏗️ Refactors"
           },
           {
-            "type": "fix",
-            "section": "🐛 Bug Fixes"
+            "type": "chore",
+            "section": "🔧 Chores"
+          },
+          {
+            "type": "docs",
+            "section": "📖 Documentation"
           }
         ]
       },
