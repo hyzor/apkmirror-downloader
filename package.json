@@ -35,22 +35,21 @@
     "release": "release-it"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "@release-it/conventional-changelog": "^8.0.1",
-    "@types/bun": "^1.1.6",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@release-it/conventional-changelog": "^8.0.2",
+    "@types/bun": "^1.3.10",
     "@types/cheerio": "^0.22.35",
-    "@types/yargs": "^17.0.32",
-    "bun-plugin-dts": "^0.2.3",
-    "prettier": "^3.3.3",
-    "release-it": "^17.6.0",
+    "@types/yargs": "^17.0.35",
+    "prettier": "^3.8.1",
+    "release-it": "^17.11.0",
     "yargs": "^17.7.2"
   },
   "peerDependencies": {
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "ts-pattern": "^5.2.0"
+    "cheerio": "^1.2.0",
+    "ts-pattern": "^5.9.0"
   },
   "exports": {
     ".": {
