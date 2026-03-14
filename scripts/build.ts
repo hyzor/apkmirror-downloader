@@ -1,4 +1,4 @@
-import dts from "bun-plugin-dts";
+import { execSync } from "node:child_process";
 
 console.log("🏗️  Building Lib");
 await Bun.build({
@@ -9,13 +9,6 @@ await Bun.build({
   // @ts-ignore
   packages: "external",
   minify: true,
-  plugins: [
-    dts({
-      output: {
-        exportReferencedTypes: false,
-      },
-    }),
-  ],
 });
 
 console.log("🏗️  Building CLI");
@@ -26,3 +19,14 @@ await Bun.build({
   sourcemap: "none",
   minify: true,
 });
+
+console.log("📝 Generating Types");
+try {
+  execSync("bun scripts/generate-types.ts", {
+    stdio: "inherit",
+    cwd: process.cwd(),
+  });
+} catch (error) {
+  console.error("❌ Failed to generate types:", error);
+  process.exit(1);
+}
