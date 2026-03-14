@@ -1,5 +1,6 @@
 import { APKMirrorDownloader } from "./lib/index";
 import { getVariants } from "./lib/scrapers/variants";
+import { isBetaVersion } from "./lib/utils";
 
 const TEMP_DIR = "./temp";
 
@@ -30,6 +31,12 @@ APKMirrorDownloader.getVersions({ org: "x-corp", repo: "twitter" }).then(
   versions => {
     console.log("Available versions for x-corp/twitter:");
     versions.forEach((version, index) => {
+      console.log(`${index + 1}. ${version.name}`);
+    });
+
+    const nonBeta = versions.filter(version => !isBetaVersion(version));
+    console.log("Versions without beta releases:");
+    nonBeta.forEach((version, index) => {
       console.log(`${index + 1}. ${version.name}`);
     });
   },

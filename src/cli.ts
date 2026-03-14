@@ -10,6 +10,7 @@ import {
   type AppOptions,
   type Version,
 } from "./index";
+import { isBetaVersion } from "./lib/utils";
 import { readJsonFile } from "./utils/filesystem";
 
 console.log("\n", `*** APKMD (APKMirror Downloader) v${version} ***`, "\n");
@@ -167,6 +168,11 @@ yargs(process.argv.slice(2))
         .positional("repo", {
           type: "string",
           describe: "Repo name",
+        })
+        .option("exclude-beta", {
+          type: "boolean",
+          describe: "Hide beta releases from the list",
+          default: false,
         });
     },
     async argv => {
@@ -177,8 +183,11 @@ yargs(process.argv.slice(2))
 
       try {
         const versions = await APKMirrorDownloader.getVersions(app);
+        const filteredVersions = argv.excludeBeta
+          ? versions.filter(version => !isBetaVersion(version))
+          : versions;
         console.log(`Available versions for ${app.org}/${app.repo}:`);
-        versions.forEach((version: Version, index: number) => {
+        filteredVersions.forEach((version: Version, index: number) => {
           console.log(`${index + 1}. ${version.name}`);
         });
       } catch (err) {
